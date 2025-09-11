@@ -1,0 +1,68 @@
+# Ignore configuration files that may contain sensitive information
+sites/*/settings*.php
+sites/*/services*.yml
+
+# Ignore paths that contain user-generated content
+sites/*/files
+
+# Ignore drupal core files
+core
+
+# Ignore vendor files
+vendor
+
+# Ignore DDEV files
+.ddev
+
+# Ignore backup files
+*_backup*
+*.sql
+
+# Ignore development/debug files
+debug.php
+*-fix.php
+complete-restoration.php
+comprehensive-fix.php
+enable-node.php
+fix-frontpage.php
+fix-modules.php
+minimal-fix.php
+restore-working-state.php
+test-entities.php
+create-admin-user.php
+module-update-info.php
+upgrade-plan.php
+
+# Ignore composer lock and backup files
+composer.lock
+composer_*.json
+composer_*.lock
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore temporary files
+*.tmp
+*.log
+error_log
+
+# Ignore specific development files
+php.ini
+phpinfo.php
+funio.html
+*.coreftp
+user.ini
+
+# Ignore original files from cPanel download
+htaccess
+editorconfig
+
+# Keep these important files (explicitly not ignored)
+# .htaccess
+# index.php
+# composer.json
+# sites/default/settings.php (template)
+# modules/contrib/
+# themes/
+# libraries/

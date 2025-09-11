@@ -1,0 +1,32 @@
+.field--name-field-colonne-gauche, .field--name-field-colonne-droite {width: 50%;}
+.paragraph--type--colonnes {display: flex;}
+
+@media all and (max-width: 900px) {
+	.paragraph--type--colonnes { display: block !important;}
+	.field--name-field-colonne-gauche, .field--name-field-colonne-droite { width: 100% !important; float: none;}
+	.field--name-field-colonne-droite { margin-top: 30px;}
+}
+
+
+a.language-link.langue-english,
+a.language-link.langue-francais {
+  color:#fff;
+}
+
+a.language-link.langue-english:after,
+a.language-link.langue-francais:after {
+  position: absolute;
+  color: #5b6b24; 
+}
+
+a.language-link.langue-francais:after {
+  content: 'Fr';
+}
+
+a.language-link.langue-english:after {
+  content: 'En';
+}
+
+.featured-bottom .region {
+  width: 100%;
+}

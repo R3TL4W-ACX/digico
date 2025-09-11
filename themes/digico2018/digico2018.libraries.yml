@@ -1,0 +1,20 @@
+global-styling:
+  css:
+    component:
+      css/style.css: {}
+      css/autrestyle.css: {}
+      css/texte.css: {}
+
+fonts:
+  css:
+    theme:
+      '//fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,900': { type: external, minified: true }
+
+slider-js:
+  js:
+    js/jquery.flexslider.js : {}
+    js/slide.js : {}
+  css:
+    component:
+      css/flexslider.css: {}
+

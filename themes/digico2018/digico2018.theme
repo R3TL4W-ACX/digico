@@ -1,0 +1,79 @@
+<?php
+
+use Drupal\Core\Url;
+
+use Drupal\captcha\Entity\CaptchaPoint;
+use Drupal\Core\Database\Database;
+use Drupal\Core\Form\BaseFormIdInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/*
+ * Enlève la langue en cours du menu
+ */
+function digico2018_preprocess_block__language_block(&$variables) {
+  $language = \Drupal::languageManager()->getCurrentLanguage();
+
+  foreach ($variables['content']['#links'] as $link => $lang) {
+    if ($link == $language->getId()) {
+      unset ($variables['content']['#links'][$link]);
+    } elseif ($link == 'en') {
+      $variables['content']['#links'][$link]['title'] = 'English'; // Changed from 'English'
+      $variables['content']['#links'][$link]['attributes']['class'][] = 'langue-english';
+    } elseif ($link == 'fr') {
+      $variables['content']['#links'][$link]['title'] = 'Français'; // Changed from 'Français'
+      $variables['content']['#links'][$link]['attributes']['class'][] = 'langue-francais';
+    }
+  }
+
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function digico2018_form_alter(&$form, $form_state, $form_id) {
+
+  // Look for any form provided by the contact module.
+  // If you want to target a specific form you'll use the whole form ID
+  // (e.g. Website feedback = 'contact_message_feedback_form').
+  if (strpos($form_id, 'contact_message_') !== FALSE) {
+    $form['actions']['preview']['#access'] = FALSE;
+  }
+}
+
+
+/**
+ * Theme function for a CAPTCHA element.
+ *
+ * Render it in a section element if a description of the CAPTCHA
+ * is available. Render it as is otherwise.
+ */
+function digico2018_preprocess_captcha(&$variables) {
+  $element = $variables['element'];
+
+  if (!empty($element['#description']) && isset($element['captcha_widgets'])) {
+    $children_keys = Element::children($element);
+    $captcha_children_output = '';
+    foreach ($children_keys as $key) {
+      if (!empty($element[$key])) {
+        $captcha_children_output .= \Drupal::service('renderer')->render($element[$key]);
+      }
+    }
+
+    $variables['details'] = [
+      '#type' => 'fieldgroup',
+      '#title' => t('CAPTCHA'),
+      '#description' => $element['#description'],
+      '#children' => Markup::create($captcha_children_output),
+      '#attributes' => [
+        'id' => 'captcha',
+        'class' => ['captcha'],
+        'open' => [''],
+      ],
+      '#open' => TRUE,
+    ];
+  }
+}
